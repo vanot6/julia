@@ -107,9 +107,9 @@
             text-decoration: none;
             color: var(--primary-color);
         }
-        .logo span {
-            font-weight: 400;
-            opacity: 0.7;
+
+        .main-nav {
+            display: flex; /* Changed for mobile toggle */
         }
 
         .main-nav ul {
@@ -142,6 +142,7 @@
             border: none;
             color: var(--primary-color);
             cursor: pointer;
+            z-index: 1100;
         }
 
         /* --- Hero Section --- */
@@ -153,7 +154,7 @@
             background-color: var(--primary-color);
             color: var(--light-text-color);
         }
-        .hero h1, .hero h2 {
+        .hero h1, .hero .subtitle {
             color: var(--light-text-color);
         }
 
@@ -389,17 +390,44 @@
         }
         
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
+            h1 { font-size: 2.2rem; }
             h2 { font-size: 1.8rem; }
-            
-            .main-nav { display: none; }
-            .menu-toggle { display: block; }
             
             .hero {
                 text-align: center;
-                min-height: 70vh;
+                min-height: 80vh;
             }
+            .hero h1 { font-size: 2.5rem; }
             .hero-content { margin: 0 auto; }
+
+            /* --- Mobile Navigation --- */
+            .menu-toggle { display: block; }
+            .main-nav {
+                position: absolute;
+                top: 70px; /* Header height */
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                flex-direction: column;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease-in-out;
+            }
+            .main-nav.is-open {
+                max-height: 500px; /* Arbitrary large value */
+            }
+            .main-nav ul {
+                flex-direction: column;
+                gap: 0;
+            }
+            .main-nav a {
+                display: block;
+                padding: 15px 20px;
+                text-align: center;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .lang-switcher { display: none; }
             
             .cta-button { width: 100%; text-align: center; }
             #contact-form button { width: 100%; }
@@ -410,8 +438,8 @@
 
     <header class="main-header">
         <div class="container">
-            <a href="#" class="logo">ИП Шевцова Ю.В. <span>& Партнёры</span></a>
-            <nav class="main-nav">
+            <a href="#" class="logo">ИП Шевцова Ю.В.</a>
+            <nav class="main-nav" id="main-nav">
                 <ul>
                     <li><a href="#about">О нас</a></li>
                     <li><a href="#services">Услуги</a></li>
@@ -421,7 +449,7 @@
                 </ul>
             </nav>
             <div class="lang-switcher">RU / EN / 中文</div>
-             <button class="menu-toggle" id="menu-toggle-btn">☰</button>
+            <button class="menu-toggle" id="menu-toggle-btn">☰</button>
         </div>
     </header>
 
@@ -491,8 +519,24 @@
                         <p>Поможем выйти на китайский рынок, найти и проверить поставщиков, выстроить логистику и маркетинговую стратегию, избежав типовых ошибок.</p>
                     </div>
                     <div class="service-item">
-                        <h3>Регистрация компаний и бухгалтерия в КНР</h3>
-                        <p>Полный цикл услуг по открытию юрлица в Китае, включая подготовку документов, выбор правовой формы и последующее бухгалтерское и налоговое сопровождение.</p>
+                        <h3>Регистрация компаний в КНР</h3>
+                        <p>Полный цикл услуг по открытию юрлица в Китае, включая подготовку документов, выбор оптимальной правовой формы и содействие в открытии счетов.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Бухгалтерское сопровождение в КНР</h3>
+                        <p>Ведение бухгалтерского и налогового учёта вашей китайской компании в строгом соответствии с местным законодательством.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Открытие юрлиц и счетов в РФ</h3>
+                        <p>Комплексная поддержка для иностранных, в том числе китайских, компаний по регистрации бизнеса и открытию банковских счетов в России.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Аутсорсинг ВЭД</h3>
+                        <p>Возьмем на себя деловую переписку и ведение переговоров с вашими контрагентами в КНР, представляя ваши интересы на профессиональном уровне.</p>
+                    </div>
+                     <div class="service-item">
+                        <h3>Помощь во взаиморасчетах с КНР</h3>
+                        <p>Консультируем и содействуем в проведении безопасных и эффективных финансовых операций с вашими поставщиками и партнерами в Китае.</p>
                     </div>
                     <div class="service-item">
                         <h3>Лингвистическое обеспечение мероприятий</h3>
@@ -518,6 +562,7 @@
                     <li>Государственный сектор</li>
                     <li>Обучение персонала</li>
                     <li>Таможенное оформление</li>
+                    <li>Внешнеэкономическая деятельность</li>
                     <li>Международные выставки</li>
                     <li>Финансы и право</li>
                     <li>IT и телекоммуникации</li>
@@ -599,20 +644,34 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             
-            // --- Smooth Scroll for Navigation Links ---
-            const navLinks = document.querySelectorAll('.main-nav a, .cta-button');
+            // --- Mobile Menu Toggle ---
+            const menuToggleBtn = document.getElementById('menu-toggle-btn');
+            const mainNav = document.getElementById('main-nav');
+            const navLinks = mainNav.querySelectorAll('a');
+
+            menuToggleBtn.addEventListener('click', function() {
+                mainNav.classList.toggle('is-open');
+            });
+
+            // Close mobile menu when a link is clicked
             navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    const href = this.getAttribute('href');
-                    if (href && href.startsWith('#')) {
-                        e.preventDefault();
-                        const targetElement = document.querySelector(href);
-                        if (targetElement) {
-                            targetElement.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                        }
+                link.addEventListener('click', function() {
+                    if (mainNav.classList.contains('is-open')) {
+                        mainNav.classList.remove('is-open');
+                    }
+                });
+            });
+
+            // --- Smooth Scroll for Anchor Links ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
                     }
                 });
             });
@@ -621,40 +680,25 @@
             const form = document.getElementById('contact-form');
             const formResponse = document.getElementById('form-response');
 
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const name = document.getElementById('name').value.trim();
-                const contactInfo = document.getElementById('contact-info').value.trim();
-                const message = document.getElementById('message').value.trim();
+            if(form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('name').value.trim();
+                    const contactInfo = document.getElementById('contact-info').value.trim();
+                    const message = document.getElementById('message').value.trim();
 
-                if (name === '' || contactInfo === '' || message === '') {
-                    showFormMessage('Пожалуйста, заполните все обязательные поля.', 'error');
-                    return;
-                }
-                
-                // Simulate form submission
-                form.style.display = 'none';
-                showFormMessage('Спасибо! Мы свяжемся с вами в ближайшее время.', 'success');
-
-                // In a real scenario, you would use fetch() to send data to a server here.
-                // For example:
-                /*
-                const formData = new FormData(form);
-                fetch('your-server-endpoint', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                     showFormMessage('Спасибо! Мы свяжемся с вами в ближайшее время.', 'success');
-                     form.reset();
-                })
-                .catch(error => {
-                    showFormMessage('Произошла ошибка при отправке. Пожалуйста, попробуйте позже.', 'error');
+                    if (name === '' || contactInfo === '' || message === '') {
+                        showFormMessage('Пожалуйста, заполните все обязательные поля.', 'error');
+                        return;
+                    }
+                    
+                    // Simulate form submission
+                    // In a real application, you would send data to a server here.
+                    const formContainer = form.parentElement;
+                    formContainer.innerHTML = `<div class="form-message success" style="display:block; text-align: center; padding: 40px 20px;">Спасибо! Мы свяжемся с вами в ближайшее время.</div>`;
                 });
-                */
-            });
+            }
 
             function showFormMessage(message, type) {
                 formResponse.textContent = message;
