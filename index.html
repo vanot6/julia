@@ -1,741 +1,228 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ИП Шевцова Ю.В. — Профессиональные переводы и бизнес-решения</title>
-    <style>
-        /* --- General Styles & Resets --- */
-        :root {
-            --primary-color: #0d2c54; /* Deep Navy Blue */
-            --secondary-color: #f0f4f8; /* Light Grey-Blue */
-            --accent-color: #4a90e2; /* Bright Blue for CTA */
-            --text-color: #333;
-            --light-text-color: #ffffff;
-            --border-color: #dce1e6;
-            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            scroll-behavior: smooth;
-        }
-
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: var(--font-family);
-            font-size: 16px;
-            line-height: 1.7;
-            color: var(--text-color);
-            background-color: var(--light-text-color);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* --- Layout & Containers --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        section {
-            padding: 80px 0;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        section:nth-of-type(even) {
-            background-color: var(--secondary-color);
-        }
-
-        /* --- Typography --- */
-        h1, h2, h3 {
-            font-weight: 700;
-            line-height: 1.3;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 3rem; /* 48px */
-        }
-
-        h2 {
-            font-size: 2.25rem; /* 36px */
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        h3 {
-            font-size: 1.5rem; /* 24px */
-        }
-        
-        p {
-            margin-bottom: 1rem;
-        }
-
-        /* --- Header & Navigation --- */
-        .main-header {
-            position: sticky;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background-color: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 15px 0;
-        }
-
-        .main-header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-decoration: none;
-            color: var(--primary-color);
-        }
-
-        .main-nav {
-            display: flex; /* Changed for mobile toggle */
-        }
-
-        .main-nav ul {
-            list-style: none;
-            display: flex;
-            gap: 25px;
-        }
-        
-        .main-nav a {
-            text-decoration: none;
-            color: var(--primary-color);
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .main-nav a:hover {
-            color: var(--accent-color);
-        }
-        
-        .lang-switcher {
-            font-size: 0.9rem;
-            color: var(--text-color);
-            opacity: 0.8;
-        }
-        
-        .menu-toggle {
-            display: none;
-            font-size: 2rem;
-            background: none;
-            border: none;
-            color: var(--primary-color);
-            cursor: pointer;
-            z-index: 1100;
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            padding: 100px 0;
-            background-color: var(--primary-color);
-            color: var(--light-text-color);
-        }
-        .hero h1, .hero .subtitle {
-            color: var(--light-text-color);
-        }
-
-        .hero-content {
-            max-width: 800px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem; /* 56px */
-            margin-bottom: 25px;
-        }
-
-        .hero .subtitle {
-            font-size: 1.25rem; /* 20px */
-            max-width: 650px;
-            opacity: 0.9;
-            margin-bottom: 40px;
-        }
-
-        /* --- CTA Button --- */
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--light-text-color);
-            padding: 15px 35px;
-            font-size: 1.1rem; /* 18px */
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 8px;
-            border: 2px solid var(--accent-color);
-            transition: background-color 0.3s, transform 0.3s, color 0.3s;
-        }
-
-        .cta-button:hover {
-            background-color: transparent;
-            color: var(--accent-color);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
-        }
-        
-        /* --- Advantages Section --- */
-        .advantages-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            text-align: left;
-        }
-        
-        .advantage-card {
-            background: var(--light-text-color);
-            padding: 30px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .advantage-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-        
-        .advantage-card h3 {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .advantage-card .icon {
-            font-size: 2rem;
-            color: var(--accent-color);
-        }
-        
-        /* --- Services Section --- */
-        .services-grid {
-             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        .service-item {
-            padding: 25px;
-            border-left: 4px solid var(--accent-color);
-            background: var(--secondary-color);
-            border-radius: 0 8px 8px 0;
-            display: flex;
-            flex-direction: column;
-        }
-        .service-item h3 { margin-bottom: 10px; }
-        .service-item p { flex-grow: 1; }
-
-
-        /* --- Industries Section --- */
-        .industries-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            list-style: none;
-        }
-        .industries-list li {
-            background-color: var(--secondary-color);
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: 500;
-            border: 1px solid var(--border-color);
-        }
-
-        /* --- Testimonials Section --- */
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        .testimonial-card {
-            background: var(--light-text-color);
-            padding: 30px;
-            border-radius: 8px;
-            border-top: 5px solid var(--accent-color);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
-        }
-        .testimonial-card .author {
-            font-weight: 700;
-            margin-top: 20px;
-        }
-        .testimonial-card .company {
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        /* --- Contact & Form Section --- */
-        .contact-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-        
-        .contact-info p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .contact-info .contact-item {
-            font-weight: 500;
-            display: block;
-            margin-bottom: 10px;
-        }
-        .contact-info .contact-item a {
-             color: var(--accent-color);
-             text-decoration: none;
-        }
-        
-        #contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        #contact-form input,
-        #contact-form textarea {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            font-family: inherit;
-            font-size: 1rem;
-        }
-        #contact-form input:focus,
-        #contact-form textarea:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
-        }
-
-        #contact-form button {
-            align-self: flex-start;
-        }
-        
-        .form-message {
-            margin-top: 20px;
-            font-weight: 600;
-            padding: 15px;
-            border-radius: 5px;
-        }
-        .form-message.success {
-            background-color: #e0f8e9;
-            color: #27ae60;
-        }
-        .form-message.error {
-            background-color: #fbeae5;
-            color: #c0392b;
-        }
-        
-        /* --- Blog Section --- */
-        .blog-posts {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .blog-post {
-            background: var(--light-text-color);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            font-weight: 500;
-            color: var(--primary-color);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .blog-post:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            cursor: pointer;
-        }
-        
-        /* --- Footer --- */
-        .main-footer {
-            background-color: var(--primary-color);
-            color: var(--light-text-color);
-            padding: 40px 0;
-            text-align: center;
-        }
-        .footer-content {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-        .footer-content a {
-            color: var(--light-text-color);
-            text-decoration: underline;
-            margin: 0 10px;
-        }
-        
-        /* --- Responsive Styles --- */
-        @media (max-width: 992px) {
-            .contact-wrapper {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            h2 { font-size: 1.8rem; }
-            
-            .hero {
-                text-align: center;
-                min-height: 80vh;
-            }
-            .hero h1 { font-size: 2.5rem; }
-            .hero-content { margin: 0 auto; }
-
-            /* --- Mobile Navigation --- */
-            .menu-toggle { display: block; }
-            .main-nav {
-                position: absolute;
-                top: 70px; /* Header height */
-                left: 0;
-                width: 100%;
-                background-color: white;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-                flex-direction: column;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.4s ease-in-out;
-            }
-            .main-nav.is-open {
-                max-height: 500px; /* Arbitrary large value */
-            }
-            .main-nav ul {
-                flex-direction: column;
-                gap: 0;
-            }
-            .main-nav a {
-                display: block;
-                padding: 15px 20px;
-                text-align: center;
-                border-bottom: 1px solid var(--border-color);
-            }
-            .lang-switcher { display: none; }
-            
-            .cta-button { width: 100%; text-align: center; }
-            #contact-form button { width: 100%; }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ИП Шевцова Ю.В. — Ваш проводник по Китаю</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
+  <header class="main-header">
+    <div class="container">
+      <a href="./" class="logo">ИП Шевцова Ю.В.</a>
+      <nav class="main-nav" id="main-nav">
+        <ul>
+          <li><a href="#about">О нас</a></li>
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#experience">Опыт</a></li>
+          <li><a href="#testimonials">Отзывы</a></li>
+          <li><a href="#contact">Контакты</a></li>
+        </ul>
+      </nav>
+      <!-- Language selector -->
+      <div class="lang-switcher">
+        <a href="./" style="text-decoration:none;color:inherit;">RU</a> /
+        <a href="en/" style="text-decoration:none;color:inherit;">EN</a> /
+        <a href="cn/" style="text-decoration:none;color:inherit;">中文</a>
+      </div>
+      <button class="menu-toggle" id="menu-toggle-btn">☰</button>
+    </div>
+  </header>
 
-    <header class="main-header">
-        <div class="container">
-            <a href="#" class="logo">ИП Шевцова Ю.В.</a>
-            <nav class="main-nav" id="main-nav">
-                <ul>
-                    <li><a href="#about">О нас</a></li>
-                    <li><a href="#services">Услуги</a></li>
-                    <li><a href="#experience">Опыт</a></li>
-                    <li><a href="#testimonials">Отзывы</a></li>
-                    <li><a href="#contact">Контакты</a></li>
-                </ul>
-            </nav>
-            <div class="lang-switcher">RU / EN / 中文</div>
-            <button class="menu-toggle" id="menu-toggle-btn">☰</button>
+  <main>
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h1>Ваш надёжный партнер по вопросам бизнеса с Китаем</h1>
+          <p class="subtitle">Более 10 лет мы обеспечиваем комплексную консультационную и лингвистическую поддержку проектов в Китае.</p>
+          <a href="#contact" class="cta-button">Оставить заявку на консультацию</a>
         </div>
-    </header>
+      </div>
+    </section>
 
-    <main>
-
-        <section id="home" class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>Ваш надёжный партнёр в сфере международных бизнес-коммуникаций</h1>
-                    <p class="subtitle">Более 10 лет мы обеспечиваем комплексную лингвистическую и юридическую поддержку для госсектора, крупного, среднего и малого бизнеса, специализируясь на проектах с Китаем и по всему миру.</p>
-                    <a href="#contact" class="cta-button">Оставить заявку на консультацию</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="about">
-            <div class="container">
-                <h2>Надёжность, подтверждённая опытом</h2>
-                <p style="text-align: center; max-width: 800px; margin: -30px auto 60px auto;">Мы — команда профессиональных переводчиков, юристов и бизнес-консультантов под руководством Юлии Шевцовой. Наш ключевой актив — многолетний опыт реализации проектов с международным участием на федеральном и региональном уровнях.</p>
-                <div class="advantages-grid">
-                    <div class="advantage-card">
-                        <h3><span class="icon">🏆</span> Опыт на уровне госпрограмм</h3>
-                        <p>Выполняем заказы для госкорпораций, включая Росатом и Алмаз-Антей, и федеральных ведомств. Работаем в строгом соответствии с договорными обязательствами.</p>
-                    </div>
-                    <div class="advantage-card">
-                        <h3><span class="icon">💎</span> Индивидуальный подход</h3>
-                        <p>Обеспечиваем прямое взаимодействие с профильными экспертами и полную адаптацию под цели и график вашего проекта. Ваша задача — наш главный приоритет.</p>
-                    </div>
-                    <div class="advantage-card">
-                        <h3><span class="icon">🌍</span> 3000+ профессионалов</h3>
-                        <p>Один из крупнейших в России пулов проверенных специалистов по техническому и бизнес-переводу. Это позволяет быстро масштабировать команду под проекты любой сложности.</p>
-                    </div>
-                    <div class="advantage-card">
-                        <h3><span class="icon">🚀</span> Передовые технологии локализации</h3>
-                        <p>Мы используем ведущие системы управления переводами (TMS). В соответствии с требованиями заказчика, проекты ведутся на платформах Trados, Smartcat, MemoQ и других.</p>
-                    </div>
-                    <div class="advantage-card">
-                        <h3><span class="icon">🇨🇳</span> Прямое присутствие в РФ и КНР</h3>
-                        <p>Наличие зарегистрированных компаний в обеих юрисдикциях позволяет нам официально представлять ваши интересы, заключать договоры и решать юридические вопросы без посредников.</p>
-                    </div>
-                    <div class="advantage-card">
-                        <h3><span class="icon">🔒</span> Абсолютная конфиденциальность</h3>
-                        <p>Строго соблюдаем коммерческую тайну. Все данные и переговоры защищены соглашением о неразглашении (NDA), что гарантирует безопасность вашей информации.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="services" class="services">
-            <div class="container">
-                <h2>Наши услуги</h2>
-                <div class="services-grid">
-                    <div class="service-item">
-                        <h3>Перевод документации на 20+ языков</h3>
-                        <p>Переводим техническую документацию, договоры, документы для таможни, финансовые отчеты, нормативно-правовую документацию, выписки, бухгалтерские и медицинские документы.</p>
-                    </div>
-                     <div class="service-item">
-                        <h3>Синхронный перевод</h3>
-                        <p>Опытные переводчики для переговоров, конференций, саммитов и обучения персонала. Обеспечиваем полное взаимопонимание в реальном времени, очно и онлайн.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>Организация бизнес-поездок в Китай</h3>
-                        <p>Полное сопровождение "под ключ": от виз и планирования встреч до участия в переговорах в качестве переводчика и консультанта по деловому этикету.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>Бизнес-консультации по работе с Китаем</h3>
-                        <p>Проводим комплексную проверку: подбор контрагентов, оценка рынка, аудит деловой репутации, учредительных документов и лицензий партнёра. Организуем проверку производства.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>Регистрация компаний в КНР</h3>
-                        <p>Полный цикл услуг по открытию юрлица в Китае, включая подготовку документов, выбор оптимальной правовой формы и содействие в открытии счетов.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>Бухгалтерское сопровождение в КНР</h3>
-                        <p>Ведение бухгалтерского и налогового учёта вашей китайской компании в строгом соответствии с местным законодательством.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>Открытие юрлиц и счетов в РФ</h3>
-                        <p>Комплексная поддержка для иностранных, в том числе китайских, компаний по регистрации бизнеса и открытию банковских счетов в России.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>Аутсорсинг ВЭД</h3>
-                        <p>Возьмем на себя деловую переписку и ведение переговоров с вашими контрагентами в КНР, представляя ваши интересы на профессиональном уровне.</p>
-                    </div>
-                     <div class="service-item">
-                        <h3>Помощь во взаиморасчетах с КНР</h3>
-                        <p>Консультируем и содействуем в проведении безопасных и эффективных финансовых операций с вашими поставщиками и партнерами в Китае.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>Курсы китайского языка</h3>
-                        <p>Интенсивные курсы в группах и индивидуально в кэмпах на о. Хайнань и в Тяньцзине. Предлагаем подготовку к поступлению в вузы КНР и онлайн-интенсив &laquo;Деловой китайский&raquo;.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>Лингвистическое обеспечение мероприятий</h3>
-                        <p>Предоставляем в аренду оборудование для синхронного перевода и команду специалистов для проведения международных форумов, выставок и семинаров.</p>
-                    </div>
-                    <div class="service-item">
-                        <h3>Таможня, маркетинг и медиа</h3>
-                        <p>Переводы для таможенного оформления. Разработка маркетинговых материалов для выставок. Создание субтитров и профессиональная озвучка видеоконтента.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="experience" class="experience">
-            <div class="container">
-                <h2>Отрасли и опыт</h2>
-                <p style="text-align: center; max-width: 800px; margin: -30px auto 60px auto;">Мы обладаем глубокой экспертизой в ключевых отраслях экономики и государственного управления, что позволяет нам говорить с вами на одном языке и точно понимать специфику задач.</p>
-                <ul class="industries-list">
-                    <li>Инфраструктура и транспорт</li>
-                    <li>Гражданское строительство</li>
-                    <li>Автопром и аэрокосмос</li>
-                    <li>Нефтегазовая отрасль</li>
-                    <li>Государственный сектор</li>
-                    <li>Обучение персонала</li>
-                    <li>Таможенное оформление</li>
-                    <li>Внешнеэкономическая деятельность</li>
-                    <li>Международные выставки</li>
-                    <li>Финансы и право</li>
-                    <li>IT и телекоммуникации</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="testimonials" class="testimonials">
-            <div class="container">
-                <h2>Нам доверяют</h2>
-                <div class="testimonials-grid">
-                    <div class="testimonial-card">
-                        <p>«Благодаря команде Юлии Шевцовой мы успешно провели переговоры с китайскими партнерами и запустили проект на два месяца раньше срока. Высочайший профессионализм и безупречная организация сопровождения делегации».</p>
-                        <p class="author">Алексей Воронин</p>
-                        <p class="company">Директор по развитию, ООО «ТехСтройИнвест»</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <p>«Работали с ИП Шевцова Ю.В. по переводу пакета технической документации для государственного тендера. Все было выполнено точно в срок, с соблюдением строгих требований к терминологии. Рекомендуем как ответственного подрядчика».</p>
-                        <p class="author">Елена Григорьевна</p>
-                        <p class="company">Руководитель тендерного отдела, АО «ПромРесурс»</p>
-                    </div>
-                    <div class="testimonial-card">
-                        <p>«Заказывали услугу регистрации компании на Хайнане. Специалисты на месте оперативно решили все бюрократические вопросы. Счет в банке открыли за два дня. Сервис на высшем уровне».</p>
-                        <p class="author">Игорь</p>
-                        <p class="company">Генеральный директор, ООО «ТЦМ»</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2>Готовы обсудить ваш проект?</h2>
-                 <div class="contact-wrapper">
-                    <div class="contact-info">
-                        <h3>Свяжитесь с нами для консультации и расчета стоимости.</h3>
-                        <p>Мы говорим на русском, английском и китайском — вам будет комфортно с нами общаться. Ответим в Telegram или по почте в течение рабочего дня.</p>
-                        <span class="contact-item"><strong>Telegram:</strong> <a href="tel:+79118136999">+7 911 813-69-99</a></span>
-                        <span class="contact-item"><strong>Email:</strong> <a href="mailto:info@shevtsova-ip.ru">info@shevtsova-ip.ru</a></span>
-                    </div>
-                    
-                    <form id="contact-form">
-                        <input type="text" id="name" name="name" placeholder="Ваше имя" required>
-                        <input type="text" id="contact-info" name="contact-info" placeholder="Телефон или Email" required>
-                        <textarea id="message" name="message" rows="5" placeholder="Кратко опишите вашу задачу" required></textarea>
-                        <button type="submit" class="cta-button">Отправить заявку</button>
-                        <div id="form-response" class="form-message" style="display: none;"></div>
-                    </form>
-                </div>
-            </div>
-        </section>
-        
-        <section id="blog" class="blog">
-             <div class="container">
-                <h2>Блог: Советы и кейсы из нашей практики</h2>
-                 <p style="text-align: center; max-width: 800px; margin: -30px auto 60px auto;">Мы регулярно публикуем статьи о бизнесе с Китаем, нюансах перевода и актуальных трендах в международных отношениях. Следите за нашими обновлениями в VK.</p>
-                <div class="blog-posts">
-                    <div class="blog-post">Как избежать типичных ошибок при выходе на рынок Китая</div>
-                    <div class="blog-post">10 трендов в таможенном законодательстве РФ в 2025 году</div>
-                    <div class="blog-post">Искусственный интеллект и переводчики: эффективный союз или конкуренция?</div>
-                </div>
-            </div>
-        </section>
-        
-    </main>
-    
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>© 2025 ИП Шевцова Ю.В. Все права защищены.</p>
-                <p>
-                    <a href="#">Политика конфиденциальности</a>
-                    <a href="#">Пользовательское соглашение</a>
-                </p>
-            </div>
+    <section id="about" class="about">
+      <div class="container">
+        <h2>Надёжность, подтверждённая опытом</h2>
+        <p class="section-intro">Индивидуальный предприниматель Шевцова Юлия Валентиновна специализируется на консультировании по вопросам ведения бизнеса с Китаем. Наш ключевой актив — многолетний опыт реализации проектов с международным участием на федеральном и региональном уровнях.</p>
+        <div class="advantages-grid">
+          <div class="advantage-card">
+            <h3><span class="icon">🏆</span> Опыт на уровне госпрограмм</h3>
+            <p>Выполняем заказы для госкорпораций, включая Росатом и Алмаз-Антей, и федеральных ведомств. Работаем в строгом соответствии с договорными обязательствами.</p>
+          </div>
+          <div class="advantage-card">
+            <h3><span class="icon">💎</span> Индивидуальный подход</h3>
+            <p>Обеспечиваем прямое взаимодействие с профильными экспертами и полную адаптацию под цели и график вашего проекта. Ваша задача — наш главный приоритет.</p>
+          </div>
+          <div class="advantage-card">
+            <h3><span class="icon">🌍</span> 300+ профессионалов</h3>
+            <p>Один из крупнейших в России экспертных пулов по Китаю. Это позволяет быстро масштабировать команду под проекты любой сложности.</p>
+          </div>
+          <div class="advantage-card">
+            <h3><span class="icon">🚀</span> Передовые технологии управления проектами</h3>
+            <p>Мы используем ведущие системы управления переводами (TMS). В соответствии с требованиями заказчика, проекты ведутся на платформах Trados, Smartcat, MemoQ и других.</p>
+          </div>
+          <div class="advantage-card">
+            <h3><span class="icon">🇨🇳</span> Прямое присутствие в РФ и КНР</h3>
+            <p>Наличие зарегистрированных компаний в обеих юрисдикциях позволяет нам официально представлять ваши интересы, заключать договоры и решать юридические вопросы без посредников.</p>
+          </div>
+          <div class="advantage-card">
+            <h3><span class="icon">🔒</span> Абсолютная конфиденциальность</h3>
+            <p>Строго соблюдаем коммерческую тайну. Все данные и переговоры защищены соглашением о неразглашении (NDA), что гарантирует безопасность вашей информации.</p>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            
-            // --- Mobile Menu Toggle ---
-            const menuToggleBtn = document.getElementById('menu-toggle-btn');
-            const mainNav = document.getElementById('main-nav');
-            const navLinks = mainNav.querySelectorAll('a');
+    <section id="services" class="services">
+      <div class="container">
+        <h2>Наши услуги</h2>
+        <div class="services-grid">
+          <div class="service-item">
+            <h3>Перевод документации на 20+ языков</h3>
+            <p>Переводим техническую документацию, договоры, документы для таможни, финансовые отчеты, нормативно-правовую документацию, выписки, бухгалтерские и медицинские документы.</p>
+          </div>
+          <div class="service-item">
+            <h3>Синхронный перевод</h3>
+            <p>Опытные переводчики для переговоров, конференций, саммитов и обучения персонала. Обеспечиваем полное взаимопонимание в реальном времени, очно и онлайн.</p>
+          </div>
+          <div class="service-item">
+            <h3>Организация бизнес-поездок в Китай</h3>
+            <p>Полное сопровождение "под ключ": от виз и планирования встреч до участия в переговорах в качестве переводчика и консультанта по деловому этикету.</p>
+          </div>
+          <div class="service-item">
+            <h3>Бизнес-консультации по работе с Китаем</h3>
+            <p>Проводим комплексную проверку: подбор контрагентов, оценка рынка, аудит деловой репутации, учредительных документов и лицензий партнёра. Организуем проверку производства.</p>
+          </div>
+          <div class="service-item">
+            <h3>Регистрация компаний в КНР</h3>
+            <p>Полный цикл услуг по открытию юрлица в Китае, включая подготовку документов, выбор оптимальной правовой формы и содействие в открытии счетов.</p>
+          </div>
+          <div class="service-item">
+            <h3>Бухгалтерское сопровождение в КНР</h3>
+            <p>Ведение бухгалтерского и налогового учёта вашей китайской компании в строгом соответствии с местным законодательством.</p>
+          </div>
+          <div class="service-item">
+            <h3>Открытие юрлиц и счетов в РФ</h3>
+            <p>Комплексная поддержка для иностранных, в том числе китайских, компаний по регистрации бизнеса и открытию банковских счетов в России.</p>
+          </div>
+          <div class="service-item">
+            <h3>Аутсорсинг ВЭД</h3>
+            <p>Возьмем на себя деловую переписку и ведение переговоров с вашими контрагентами в КНР, представляя ваши интересы на профессиональном уровне.</p>
+          </div>
+          <div class="service-item">
+            <h3>Помощь во взаиморасчетах с КНР</h3>
+            <p>Консультируем и содействуем в проведении безопасных и эффективных финансовых операций с вашими поставщиками и партнерами в Китае.</p>
+          </div>
+          <div class="service-item">
+            <h3>Курсы китайского языка</h3>
+            <p>Интенсивные курсы в группах и индивидуально в кэмпах на о. Хайнань и в Тяньцзине. Предлагаем подготовку к поступлению в вузы КНР и онлайн-интенсив &laquo;Деловой китайский&raquo;.</p>
+          </div>
+          <div class="service-item">
+            <h3>Лингвистическое обеспечение мероприятий</h3>
+            <p>Предоставляем в аренду оборудование для синхронного перевода и команду специалистов для проведения международных форумов, выставок и семинаров.</p>
+          </div>
+          <div class="service-item">
+            <h3>Таможня, маркетинг и медиа</h3>
+            <p>Переводы для таможенного оформления. Разработка маркетинговых материалов для выставок. Создание субтитров и профессиональная озвучка видеоконтента.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            menuToggleBtn.addEventListener('click', function() {
-                mainNav.classList.toggle('is-open');
-            });
+    <section id="experience" class="experience">
+      <div class="container">
+        <h2>Отрасли и опыт</h2>
+        <p class="section-intro">Мы обладаем глубокой экспертизой в ключевых отраслях экономики и государственного управления, что позволяет нам говорить с вами на одном языке и точно понимать специфику задач.</p>
+        <ul class="industries-list">
+          <li>Инфраструктура и транспорт</li>
+          <li>Гражданское строительство</li>
+          <li>Автопром и аэрокосмос</li>
+          <li>Нефтегазовая отрасль</li>
+          <li>Государственный сектор</li>
+          <li>Обучение персонала</li>
+          <li>Таможенное оформление</li>
+          <li>Внешнеэкономическая деятельность</li>
+          <li>Международные выставки</li>
+          <li>Финансы и право</li>
+          <li>IT и телекоммуникации</li>
+        </ul>
+      </div>
+    </section>
 
-            // Close mobile menu when a link is clicked
-            navLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    if (mainNav.classList.contains('is-open')) {
-                        mainNav.classList.remove('is-open');
-                    }
-                });
-            });
+    <section id="testimonials" class="testimonials">
+      <div class="container">
+        <h2>Нам доверяют</h2>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <p>«Благодаря команде Юлии Шевцовой мы успешно провели переговоры с китайскими партнерами и запустили проект на два месяца раньше срока. Высочайший профессионализм и безупречная организация сопровождения делегации».</p>
+            <p class="author">Алексей Воронин</p>
+            <p class="company">Директор по развитию, ООО «ТехСтройИнвест»</p>
+          </div>
+          <div class="testimonial-card">
+            <p>«Работали с ИП Шевцова Ю.В. по переводу пакета технической документации для государственного тендера. Все было выполнено точно в срок, с соблюдением строгих требований к терминологии. Рекомендуем как ответственного подрядчика».</p>
+            <p class="author">Елена Григорьевна</p>
+            <p class="company">Руководитель тендерного отдела, АО «ПромРесурс»</p>
+          </div>
+          <div class="testimonial-card">
+            <p>«Заказывали услугу регистрации компании на Хайнане. Специалисты на месте оперативно решили все бюрократические вопросы. Счет в банке открыли за два дня. Сервис на высшем уровне».</p>
+            <p class="author">Игорь</p>
+            <p class="company">Генеральный директор, ООО «ТЦМ»</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            // --- Smooth Scroll for Anchor Links ---
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if(targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+    <section id="contact" class="contact">
+      <div class="container">
+        <h2>Готовы обсудить ваш проект?</h2>
+        <div class="contact-wrapper">
+          <div class="contact-info">
+            <h3>Свяжитесь с нами для консультации и расчета стоимости.</h3>
+            <p>Мы говорим на русском, английском и китайском — вам будет комфортно с нами общаться. Ответим в Telegram или по почте в течение рабочего дня.</p>
+            <span class="contact-item"><strong>Telegram:</strong> <a href="tel:+79118136999">+7 911 813-69-99</a></span>
+            <span class="contact-item"><strong>Email:</strong> <a href="mailto:ics-russia@mail.ru">ics-russia@mail.ru</a></span>
 
-            // --- Contact Form Validation and Submission ---
-            const form = document.getElementById('contact-form');
-            const formResponse = document.getElementById('form-response');
+            <!-- WeChat QR -->
+            <div class="contact-item" style="margin-top:15px;">
+              <strong>WeChat:</strong>
+              <div style="margin-top:8px;">
+                <img src="images/wechat-qr.png" alt="WeChat QR" width="140" height="140" style="border:1px solid #eee;border-radius:8px;">
+              </div>
+            </div>
+          </div>
 
-            if(form) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    const name = document.getElementById('name').value.trim();
-                    const contactInfo = document.getElementById('contact-info').value.trim();
-                    const message = document.getElementById('message').value.trim();
+          <!-- Contact Form (Formspree) -->
+          <form id="contact-form" action="https://formspree.io/f/movlobob" method="POST">
+            <input type="text" id="name" name="name" placeholder="Ваше имя" required>
+            <input type="email" id="email" name="email" placeholder="Email (для ответа)" required>
+            <input type="text" id="contact-info" name="contact" placeholder="Телефон (опционально)">
+            <textarea id="message" name="message" rows="5" placeholder="Кратко опишите вашу задачу" required></textarea>
 
-                    if (name === '' || contactInfo === '' || message === '') {
-                        showFormMessage('Пожалуйста, заполните все обязательные поля.', 'error');
-                        return;
-                    }
-                    
-                    // Simulate form submission
-                    // In a real application, you would send data to a server here.
-                    const formContainer = form.parentElement;
-                    formContainer.innerHTML = `<div class="form-message success" style="display:block; text-align: center; padding: 40px 20px;">Спасибо! Мы свяжемся с вами в ближайшее время.</div>`;
-                });
-            }
+            <input type="text" name="_gotcha" style="display:none">
+            <input type="hidden" name="_subject" value="Новая заявка с сайта (ИП Шевцова Ю.В.)">
+            <input type="hidden" name="_language" value="ru">
 
-            function showFormMessage(message, type) {
-                formResponse.textContent = message;
-                formResponse.className = 'form-message ' + type;
-                formResponse.style.display = 'block';
-            }
-            
-            // --- Animate Sections on Scroll ---
-            const sections = document.querySelectorAll('section');
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
+            <button type="submit" class="cta-button">Отправить заявку</button>
+            <div id="form-response" class="form-message hidden" aria-live="polite"></div>
+          </form>
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
+        </div>
+      </div>
+    </section>
+  </main>
 
-            sections.forEach(section => {
-                observer.observe(section);
-            });
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <p>© 2025 ИП Шевцова Ю.В. Все права защищены.</p>
+        <p>
+          <a href="#">Политика конфиденциальности</a>
+          <a href="#">Пользовательское соглашение</a>
+        </p>
+      </div>
+    </div>
+  </footer>
 
-        });
-    </script>
+  <script src="script.js" defer></script>
 </body>
 </html>
