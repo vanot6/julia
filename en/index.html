@@ -42,9 +42,16 @@
   </header>
 
   <main>
-    <section id="home" class="hero">
-      <div class="container">
-        <div class="hero-content">
+<section id="home" class="hero">
+  <div class="container">
+
+    <div class="lang-switcher--mobile" aria-label="Language switcher">
+      <a href="../" onclick="localStorage.setItem('preferredLang','ru')"><span class="lang-flag">🇷🇺</span>RU</a>
+      <a href="./" onclick="localStorage.setItem('preferredLang','en')"><span class="lang-flag">🇬🇧</span>EN</a>
+      <a href="../cn/" onclick="localStorage.setItem('preferredLang','zh')"><span class="lang-flag">🇨🇳</span>中文</a>
+    </div>
+
+    <div class="hero-content">
           <h1>Your Trusted Partner for Education, Travel & Business in Russia</h1>
           <p class="subtitle">
             Admissions to Russian universities, bespoke travel, Russian language courses, company formation with office solutions, accounting & tax, staffing, representation, market entry, business advisory, and premium real estate.
