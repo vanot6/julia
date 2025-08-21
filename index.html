@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ИП Шевцова Ю.В. — Ваш проводник по Китаю</title>
+
+  <!-- SEO -->
+  <link rel="canonical" href="https://perevodholding.ru/"/>
+  <link rel="alternate" hreflang="ru" href="https://perevodholding.ru/"/>
+  <link rel="alternate" hreflang="en" href="https://perevodholding.ru/en/"/>
+  <link rel="alternate" hreflang="zh-Hans" href="https://perevodholding.ru/cn/"/>
+  <link rel="alternate" hreflang="x-default" href="https://perevodholding.ru/"/>
+
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
@@ -21,9 +29,9 @@
       </nav>
       <!-- Language selector -->
       <div class="lang-switcher">
-        <a href="./" style="text-decoration:none;color:inherit;">RU</a> /
-        <a href="en/" style="text-decoration:none;color:inherit;">EN</a> /
-        <a href="cn/" style="text-decoration:none;color:inherit;">中文</a>
+        <a href="./" onclick="localStorage.setItem('preferredLang','ru')" style="text-decoration:none;color:inherit;">RU</a> /
+        <a href="en/" onclick="localStorage.setItem('preferredLang','en')" style="text-decoration:none;color:inherit;">EN</a> /
+        <a href="cn/" onclick="localStorage.setItem('preferredLang','zh')" style="text-decoration:none;color:inherit;">中文</a>
       </div>
       <button class="menu-toggle" id="menu-toggle-btn">☰</button>
     </div>
@@ -224,5 +232,25 @@
   </footer>
 
   <script src="script.js" defer></script>
+
+  <!-- Auto-redirect by browser language (root only) -->
+  <script>
+  (function(){
+    try {
+      var path = location.pathname.replace(/\\/index\\.html$/,'/');
+      var isRoot = (path === '/' || path === '');
+      if (!isRoot) return;
+
+      var pref = localStorage.getItem('preferredLang');
+      if (pref === 'en') { if (!location.pathname.startsWith('/en/')) location.replace('en/'); return; }
+      if (pref === 'zh') { if (!location.pathname.startsWith('/cn/')) location.replace('cn/'); return; }
+
+      var lang = (navigator.language || navigator.userLanguage || 'ru').toLowerCase();
+      if (lang.startsWith('zh') && !location.pathname.startsWith('/cn/')) { location.replace('cn/'); return; }
+      if (lang.startsWith('en') && !location.pathname.startsWith('/en/')) { location.replace('en/'); return; }
+      /* default RU */
+    } catch(e){}
+  })();
+  </script>
 </body>
 </html>
