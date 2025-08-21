@@ -38,9 +38,17 @@
   </header>
 
   <main>
-    <section id="home" class="hero">
-      <div class="container">
-        <div class="hero-content">
+<section id="home" class="hero">
+  <div class="container">
+
+    <!-- Mobile language switcher (shown only on mobile) -->
+    <div class="lang-switcher--mobile" aria-label="Language switcher">
+      <a href="./" onclick="localStorage.setItem('preferredLang','ru')"><span class="lang-flag">🇷🇺</span>RU</a>
+      <a href="en/" onclick="localStorage.setItem('preferredLang','en')"><span class="lang-flag">🇬🇧</span>EN</a>
+      <a href="cn/" onclick="localStorage.setItem('preferredLang','zh')"><span class="lang-flag">🇨🇳</span>中文</a>
+    </div>
+
+    <div class="hero-content">
           <h1>Ваш надёжный партнер по вопросам бизнеса с Китаем</h1>
           <p class="subtitle">Более 10 лет мы обеспечиваем комплексную консультационную и лингвистическую поддержку проектов в Китае.</p>
           <a href="#contact" class="cta-button">Оставить заявку на консультацию</a>
