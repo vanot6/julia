@@ -1,0 +1,337 @@
+/* =========================
+   CN ELITE THEME (Red + Gold)
+   ========================= */
+
+/* Palette & typography */
+:root{
+  --primary-color:#E60012;              /* China Red */
+  --accent-color:#CF1322;               /* Deep Red */
+  --secondary-color:#FFF5F5;            /* Soft red tint for alt sections */
+  --gold-color:#CFA93F;                 /* Premium gold accent */
+  --text-color:#111;
+  --light-text-color:#fff;
+  --border-color:#F1D9D9;               /* Warm border tone for cards/lines */
+
+  --font-chinese:"Noto Sans SC","Source Han Sans SC","PingFang SC",
+                 "Hiragino Sans GB","Microsoft YaHei","Heiti SC",sans-serif;
+  --font-chinese-display:"Noto Serif SC","Source Han Serif SC",
+                          "Songti SC","STSong",serif;
+
+  scroll-behavior:smooth;
+}
+
+/* Reset & base */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:var(--font-chinese);
+  font-size:17px;
+  line-height:1.8;
+  color:var(--text-color);
+  background:#fff;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  letter-spacing:0;
+}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+section{padding:80px 0;opacity:0;transform:translateY(30px);transition:opacity .8s ease-out,transform .8s ease-out}
+section.visible{opacity:1;transform:translateY(0)}
+section:nth-of-type(even){background-color:var(--secondary-color)}
+p{margin-bottom:1rem}
+.section-intro{text-align:center;max-width:880px;margin:-30px auto 60px}
+
+/* Headings */
+h1,h2,h3{
+  font-family:var(--font-chinese-display);
+  font-weight:700;
+  line-height:1.2;
+  color:var(--primary-color);
+  margin-bottom:18px;
+  text-rendering:optimizeLegibility;
+}
+h1{font-size:3.5rem}
+h2{font-size:2.5rem;text-align:center;margin-bottom:50px}
+h3{font-size:1.75rem}
+
+/* highlights */
+
+.cn-block-highlight {
+  color: #fff;
+  background-color: #E60012;
+  padding: 0 0.25em; /* чуть-чуть красного по бокам */
+}
+
+.cn-highlight {
+  color: #fff; /* сам текст белый */
+  display: inline;
+  background: linear-gradient(
+    to top,
+    #E60012 40%,   /* красная полоса занимает нижние 40% */
+    transparent 40%
+  );
+}
+
+.cn-red-outline {
+  color: #E60012; /* красный текст */
+  -webkit-text-stroke: 2px #fff; /* белый обвод */
+  text-stroke: 2px #fff;         /* поддержка в других движках */
+  paint-order: stroke fill;      /* сначала обводка, потом заливка */
+}
+
+
+
+
+/* Header / nav */
+.main-header{
+  position:sticky;top:0;width:100%;z-index:1000;
+  background-color:rgba(255,255,255,.95);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
+  padding:15px 0;
+}
+.main-header .container{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:1.5rem;font-weight:700;text-decoration:none;color:var(--primary-color)}
+.main-nav{display:flex}
+.main-nav ul{list-style:none;display:flex;gap:25px}
+.main-nav a{
+  text-decoration:none;color:var(--text-color);font-weight:600;
+  transition:color .25s;
+}
+.main-nav a:hover{color:var(--primary-color)}
+.lang-switcher{font-size:.9rem;color:var(--text-color);opacity:.8}
+.menu-toggle{display:none;font-size:2rem;background:0 0;border:none;color:var(--primary-color);cursor:pointer;z-index:1100}
+
+/* HERO */
+.hero{
+  position:relative;
+  height:100vh;
+  background:url('images/chinabg.jpg') no-repeat center center/cover;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+}
+.hero h1,.hero .subtitle{font-family:var(--font-chinese-display)}
+.hero-content{position:relative;z-index:1;max-width:800px}
+.hero h1{font-size:3.6rem;margin-bottom:22px}
+.hero .subtitle{font-size:1.3rem;max-width:720px;opacity:.95;margin:0 auto 22px}
+
+
+
+/* CTA */
+.cta-row{display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-top:12px}
+.cta-button{
+  display:inline-block;background-color:var(--primary-color);
+  color:#fff;padding:15px 35px;font-size:1.12rem;font-weight:700;
+  text-decoration:none;border-radius:10px;border:2px solid var(--primary-color);
+  transition:background-color .25s,transform .25s,color .25s,box-shadow .25s,border-color .25s;
+}
+.cta-button:hover{
+  background:#fff;color:var(--primary-color);transform:translateY(-3px);
+  border-color:var(--gold-color);
+  box-shadow:0 6px 18px rgba(230,0,18,.25);
+}
+
+/* Grids */
+.advantages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;text-align:left}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:30px}
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px}
+.blog-posts{display:flex;flex-direction:column;gap:15px}
+
+/* Advantage Card */
+.advantage-card{
+  background:#fff;padding:30px;border-radius:12px;border:1px solid var(--border-color);
+  box-shadow:0 4px 15px rgba(0,0,0,.05);
+  transition:transform .25s,box-shadow .25s;
+}
+.advantage-card:hover{transform:translateY(-5px);box-shadow:0 10px 28px rgba(0,0,0,.12)}
+.advantage-card h3{display:flex;align-items:center;gap:14px}
+.advantage-card .icon{font-size:2rem;color:var(--primary-color)}
+
+/* Services */
+.service-item{
+  padding:25px;border-left:4px solid var(--primary-color);
+  background:#fff;border-radius:0 12px 12px 0;display:flex;flex-direction:column;
+}
+.service-item h3{margin-bottom:10px}
+.service-item p{flex-grow:1}
+
+/* Industries (pills) */
+.industries-list{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;list-style:none}
+.industries-list li{
+  background:linear-gradient(180deg,#FFF7F7,#FFECEC);
+  padding:10px 18px;border-radius:999px;font-weight:700;
+  border:1px solid #F5C8C8;color:#9A0C12;
+}
+
+/* Testimonials */
+.testimonial-card{
+  background:#fff;padding:30px;border-radius:12px;border-top:5px solid var(--gold-color);
+  box-shadow:0 5px 20px rgba(0,0,0,.07);
+}
+.testimonial-card .author{font-weight:700;margin-top:18px}
+.testimonial-card .company{font-size:.9rem;opacity:.7}
+
+/* Contact */
+.contact-wrapper{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.contact-info p{font-size:1.1rem;margin-bottom:1.3rem}
+.contact-info .contact-item{font-weight:600;display:block;margin-bottom:10px}
+.contact-info .contact-item a{color:var(--primary-color);text-decoration:none}
+
+/* Form */
+#contact-form{display:flex;flex-direction:column;gap:20px}
+#contact-form input,#contact-form textarea{
+  width:100%;padding:14px;border:1px solid var(--border-color);border-radius:8px;
+  font-family:inherit;font-size:1rem
+}
+#contact-form input:focus,#contact-form textarea:focus{
+  outline:none;border-color:var(--primary-color);
+  box-shadow:0 0 0 4px rgba(230,0,18,.12)
+}
+#contact-form button{align-self:flex-start}
+.form-message{margin-top:20px;font-weight:700;padding:14px;border-radius:8px}
+.form-message.success{background-color:#F0FAEA;color:#2E7D32}
+.form-message.error{background-color:#FFF1EE;color:#B3201F}
+.hidden{display:none}
+.thankyou{display:block;text-align:center;padding:40px 20px}
+
+/* Blog list */
+.blog-post{
+  background:#fff;padding:20px;border-radius:10px;border:1px solid var(--border-color);
+  font-weight:600;color:var(--primary-color);
+  transition:transform .25s,box-shadow .25s;
+}
+.blog-post:hover{transform:translateX(5px);box-shadow:0 6px 18px rgba(0,0,0,.1);cursor:pointer}
+
+/* Footer */
+.main-footer{background:#99080E;color:#fff;padding:40px 0;text-align:center}
+.footer-content{font-size:.9rem;opacity:.9}
+.footer-content a{color:#fff;text-decoration:underline;margin:0 10px}
+
+/* Cover cards (kept) */
+.card--cover{color:#fff;padding:24px;border:none;position:relative;overflow:hidden;border-radius:12px}
+.card--cover::before{
+  content:"";position:absolute;inset:0;
+  background-image:linear-gradient(to top,rgba(0,0,0,.72),rgba(0,0,0,.15)),var(--card-image);
+  background-size:cover;background-position:center;z-index:0;transition:transform .3s
+}
+.card--cover:hover::before{transform:scale(1.05)}
+.card--cover *{position:relative;z-index:1}
+.card-tag{position:absolute;top:12px;right:12px;background:rgba(255,255,255,.92);font-weight:800;padding:4px 10px;border-radius:999px}
+.card-tag--red{background:var(--primary-color);color:#fff}
+.card--cover h3,.card--cover p{color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+
+/* ===== Red+Gold Icon/Badge System ===== */
+
+/* Generic gold border container (plaques) */
+.plaque{
+  border:1px solid rgba(207,169,63,.9);
+  border-radius:12px;
+  background:linear-gradient(180deg,#FFFFFF, #FFFAF0);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 6px 16px rgba(207,169,63,.12);
+  padding:18px;
+}
+
+/* Icon badge (round) */
+.icon-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;border-radius:50%;
+  background:radial-gradient(120% 120% at 30% 30%, #FFBFBF 0%, #E60012 65%, #B50810 100%);
+  color:#fff;font-size:20px;box-shadow:0 6px 16px rgba(230,0,18,.25), inset 0 0 0 2px rgba(255,255,255,.25);
+}
+
+/* Icon badge (gold outline) */
+.icon-badge--gold{
+  background:#fff;color:#9A0C12;
+  border:2px solid var(--gold-color);
+  box-shadow:0 4px 12px rgba(207,169,63,.25);
+}
+
+/* Pill tags */
+.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;font-weight:800}
+.pill--red{
+  background:linear-gradient(180deg,#FFEBEB,#FFD6D6);
+  color:#9A0C12;border:1px solid #F5C8C8;
+}
+.pill--gold{
+  background:linear-gradient(180deg,#FFF8E6,#FFF1CC);
+  color:#7A5B12;border:1px solid rgba(207,169,63,.8);
+}
+
+/* Use in advantage cards */
+.advantage-card .icon-badge{margin-right:4px}
+
+/* ===== Header language switcher (kept) ===== */
+.lang-switcher--mobile{display:none}
+.lang-switcher a,.lang-switcher--mobile a{
+  text-decoration:none;color:var(--primary-color);font-weight:700;
+  display:inline-flex;align-items:center;gap:8px
+}
+.lang-flag{font-size:1.1rem;line-height:1}
+
+/* Mobile nav */
+@media (max-width:768px){
+  .main-header .lang-switcher{display:none}
+  .hero .lang-switcher--mobile{
+    display:flex;justify-content:center;gap:18px;margin:-10px auto 18px;width:100%;opacity:.95
+  }
+  .hero .lang-switcher--mobile a{
+    color:#fff;border:1px solid rgba(255,255,255,.25);padding:6px 10px;border-radius:999px;font-weight:700
+  }
+  .hero .lang-switcher--mobile a:hover{background:rgba(255,255,255,.08)}
+  .menu-toggle{display:block}
+  .main-nav{
+    position:absolute;top:70px;left:0;width:100%;
+    background:#fff;box-shadow:0 5px 10px rgba(0,0,0,.1);
+    flex-direction:column;max-height:0;overflow:hidden;transition:max-height .4s ease-in-out
+  }
+  .main-nav.is-open{max-height:500px}
+  .main-nav ul{flex-direction:column;gap:0}
+  .main-nav a{display:block;padding:15px 20px;text-align:center;border-bottom:1px solid var(--border-color)}
+  /* Mobile type scale */
+  h1{font-size:2.6rem}
+  h2{font-size:2rem}
+  h3{font-size:1.4rem}
+  .hero{min-height:80vh;text-align:center}
+  .hero h1{font-size:2.8rem}
+  .hero-content{margin:0 auto}
+  .cta-button{width:100%;text-align:center}
+  #contact-form button{width:100%}
+}
+
+/* Client logos sizing if used */
+.client-logos img{height:28px}
+
+
+/* === Flat Red Icon Plates (CN style) === */
+.icon-plate{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;flex:0 0 44px;
+  border-radius:10px;
+  background:var(--primary-color); /* #E60012 */
+  color:#fff;
+  font-family:var(--font-chinese-display);
+  font-weight:900;                 /* тяжёлый кегль = чёткий пиктограм */
+  font-size:22px;                  /* размер иероглифа */
+  line-height:1; letter-spacing:0;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28),
+              0 6px 16px rgba(230,0,18,.18);
+}
+
+/* Иконка в карточках преимуществ */
+.advantage-card h3{
+  display:flex;align-items:center;gap:12px;
+}
+.advantage-card h3 .icon-plate{margin-right:2px}
+
+/* Иконка перед заголовком услуги */
+.service-item h3{
+  display:flex;align-items:center;gap:12px;margin-bottom:10px;
+}
+.service-item h3 .icon-plate{margin-right:2px}
+
+/* Вариант «иконка над заголовком» (если захочешь вертикальную компоновку)
+   <div class="service-item service-item--stacked"> … </div> */
+.service-item--stacked h3{
+  display:block;text-align:left;margin-top:10px;
+}
+.service-item--stacked .icon-plate{
+  display:inline-flex;margin-bottom:8px;
+}
