@@ -30,7 +30,7 @@
       <!-- Language selector -->
       <div class="lang-switcher">
         <a href="en/" onclick="localStorage.setItem('preferredLang','en')" style="text-decoration:none;color:inherit;">English</a> /
-        <a href="cn/" onclick="localStorage.setItem('preferredLang','zh')" style="text-decoration:none;color:inherit;">中文</a>
+        <a href="cn/" onclick="localStorage.setItem('preferredLang','zh')" style="text-decoration:none;color:inherit; display: none;">中文</a>
       </div>
       <button class="menu-toggle" id="menu-toggle-btn">☰</button>
     </div>
@@ -44,7 +44,7 @@
     <!-- Mobile language switcher (shown only on mobile) -->
     <div class="lang-switcher--mobile" aria-label="Language switcher">
       <a href="en/" onclick="localStorage.setItem('preferredLang','en')"><span class="lang-flag">🇬🇧</span>English</a>
-      <a href="cn/" onclick="localStorage.setItem('preferredLang','zh')"><span class="lang-flag">🇨🇳</span>中文</a>
+      <a href="cn/" onclick="localStorage.setItem('preferredLang','zh')" style="display: none;"><span class="lang-flag">🇨🇳</span>中文</a>
     </div>
 
     <div class="hero-content">
