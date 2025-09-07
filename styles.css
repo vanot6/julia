@@ -34,3 +34,35 @@
   z-index: 1;
   max-width: 800px;
 }
+
+/* язык-свитчер всегда поверх фонов и оверлеев */
+.lang-switcher--mobile,
+.lang-switcher {
+  position: relative;
+  z-index: 1002;
+}
+.lang-switcher--mobile a,
+.lang-switcher a {
+  pointer-events: auto;
+}
+
+/* если у героя/картинок есть ::before/::after — не перехватывать клики */
+.hero::before,
+.hero::after,
+.card--cover::before,
+.card--cover::after {
+  pointer-events: none !important;
+}
+
+/* меню-кнопка поверх навигации, но не поверх всего контента */
+.menu-toggle {
+  position: relative;
+  z-index: 1003;
+}
+
+/* если хедер фиксированный, не даём ему перекрывать клики ниже по странице */
+.main-header {
+  position: relative;        /* если было fixed, оставьте fixed, но… */
+  z-index: 1000;             /* меньше, чем у .lang-switcher--mobile */
+  pointer-events: auto;      /* кликается сам хедер */
+}
